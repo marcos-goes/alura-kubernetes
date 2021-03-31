@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: replicaset-portal-noticias
+spec:
+  template:
+    metadata:
+      name: pod-portal-noticias
+      labels:
+        app: pod-portal-noticias
+    spec:
+      containers:
+        - name: portal-noticias-container
+          image: aluracursos/portal-noticias:1
+          ports: 
+            - containerPort: 80
+          envFrom:
+            - configMapRef:
+                name: configmap-portal-noticias
+  replicas: 3
+  selector:
+    matchLabels:
+      app: pod-portal-noticias
